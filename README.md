@@ -24,6 +24,7 @@ Java의 Swing 라이브러리를 사용해서 마우스, 키보드를 사용한 
 
 ### 2.1 이슈트래커를 사용한 체계적인 이슈관리
 <img src="https://user-images.githubusercontent.com/55074554/80221717-a5928400-8680-11ea-8f48-0e81136d3de7.png" width="90%"></img>
+
 현업에서도 자주 사용되는 Jira를 사용한 이슈 관리 및 에자일방법론 중 스크럼 방식을 사용해서 프로젝트 진행
 
 ### 2.2 Test Driven Development
