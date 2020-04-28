@@ -48,6 +48,6 @@ public class HRRN extends Scheduling{
 			}
 			addWaitTime();
 		}
-		return null;
+		return rePro;
 	}
 }

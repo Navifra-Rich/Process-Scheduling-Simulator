@@ -12,14 +12,17 @@ public class RR extends Scheduling {
 
 	@Override
 	public Process[] doScheduling() {
+		int index=0;
+		Process[] rePro=new Process[15];
 		printProcessInfo();
 		for (int time = 0; !isEnd(); time++) {
 			setWaitQ(time);
 			for (int i = 0; i < processorNum; i++) {
 				if (processor[i] != null) {
-					if(checkRemain(time, i))
+					if(checkRemain(time, i)) {
+						rePro[index++]=processor[i];
 						processor[i] = null;
-					else if (processor[i].getQuantum() == quantum - 1) {
+					}else if (processor[i].getQuantum() == quantum - 1) {
 					//if (processor[i] != null && processor[i].getQuantum() == quantum - 1) {
 						processor[i].setQuantum(0);
 						processor[i].reduRemainTime();
@@ -36,6 +39,7 @@ public class RR extends Scheduling {
 				}
 			}
 		}
-		return null;
+		System.out.println("Á¾·á");
+		return rePro;
 	}
 }

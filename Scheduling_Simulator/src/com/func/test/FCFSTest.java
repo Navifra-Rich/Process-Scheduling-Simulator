@@ -12,6 +12,7 @@ class FCFSTest {
 		fail("Not yet implemented");
 	}
 
+	// 코어 1개,프로세스4개 
 	@Test
 	void testdoScheduling() {
 		Process[] test = new Process[15];
@@ -29,7 +30,7 @@ class FCFSTest {
 		obj[3]=new Process(2, 3, 11, 6, 9);
 		for(int i=0;i<4;i++) {
 			if(obj[i].equals(test[i])) {
-				fail(obj[i].toString()+" 틀려씀 "+test[i].toString());
+				fail(obj[i].toString()+" Not Equal "+test[i].toString());
 			}
 				
 		}
