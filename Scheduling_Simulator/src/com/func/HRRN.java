@@ -7,10 +7,6 @@ public class HRRN extends Scheduling{
 	public void addWaitTime() {
 		for (int i = 0; i < waitQ.size(); i++) waitQ.get(i).addWaitTime();
 	}
-	// 큰값 리턴
-	public int max(int a, int b) {
-		return a>b ? a:b;
-	}
 	// HRRN알고리즘에 의해서 대기큐에 있는 프로세스중 가장 우선순위가 높은 프로세스의 인덱스를 반환합니다.
 	public int pick() {
 		int maxIdx=0;

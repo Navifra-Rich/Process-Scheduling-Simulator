@@ -1,16 +1,13 @@
 package com.func;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import com.pro.Process;
-
 public abstract class Scheduling {
 	int processorNum;
 
 	public Scheduling(int processorNum) {
 		this.processorNum = processorNum;
 	}
-
 	Process[] processor = new Process[4];
 	ArrayList<Process> pcs = new ArrayList<Process>(); 	// 모든 프로세스가 저장되어있는 큐
 	LinkedList<Process> waitQ = new LinkedList<Process>(); // 도착한 프로세스가 대기하는 큐
@@ -28,7 +25,6 @@ public abstract class Scheduling {
 				return false;
 		return true;
 	}
-
 	// 프로세스 전체 큐에서 시간에 따라 프로세스 대기큐로 프로세스를 이동시킵니다. 매 시간단위마다 호출됩니다.
 	public void setWaitQ(int time) {
 		for (int i = 0; i < pcs.size(); i++)
@@ -52,7 +48,6 @@ public abstract class Scheduling {
 		}
 		return false;
 	}
-	
 	// 모든 프로세스의 정보를 출력합니다. 유지보수 및 디버깅용 입니다.
 	public void printProcessInfo() {
 		for (int i = 0; i < pcs.size(); i++)

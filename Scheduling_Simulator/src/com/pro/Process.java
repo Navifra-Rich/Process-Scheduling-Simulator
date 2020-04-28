@@ -10,6 +10,15 @@ public class Process {
 	int remainTime;	//remain time
 	int quantum;	//quantum (Round Robin)
 	public Process() {}
+	public Process(Process p) {
+		this.arrTime = p.arrTime;
+		this.burTime = p.burTime;
+		this.endTime = p.endTime;
+		this.waitTime = p.waitTime;
+		this.turnTime = p.turnTime;
+		this.remainTime = p.remainTime;
+		this.ID = p.ID;
+	}
 	public Process(int arrTime, int burTime) {
 		this.arrTime=arrTime;
 		this.burTime=burTime;

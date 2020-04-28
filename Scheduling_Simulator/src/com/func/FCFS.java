@@ -23,4 +23,3 @@ public class FCFS extends Scheduling{
 		return rePro;
 	}
 }
-

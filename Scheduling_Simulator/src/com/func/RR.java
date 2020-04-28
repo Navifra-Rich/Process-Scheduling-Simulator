@@ -9,7 +9,6 @@ public class RR extends Scheduling {
 		super(processorNum);
 		this.quantum = quantum;
 	}
-
 	@Override
 	public Process[] doScheduling() {
 		int index=0;
@@ -23,7 +22,6 @@ public class RR extends Scheduling {
 						rePro[index++]=processor[i];
 						processor[i] = null;
 					}else if (processor[i].getQuantum() == quantum - 1) {
-					//if (processor[i] != null && processor[i].getQuantum() == quantum - 1) {
 						processor[i].setQuantum(0);
 						processor[i].reduRemainTime();
 						waitQ.offer(processor[i]);
@@ -39,7 +37,6 @@ public class RR extends Scheduling {
 				}
 			}
 		}
-		System.out.println("Á¾·á");
 		return rePro;
 	}
 }
