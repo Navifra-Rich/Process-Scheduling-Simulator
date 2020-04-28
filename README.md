@@ -29,7 +29,7 @@ Java의 Swing 라이브러리를 사용해서 마우스, 키보드를 사용한 
 
 ### 2.2 Test Driven Development
 
-<img src="https://user-images.githubusercontent.com/55074554/80449049-0f4caf80-8959-11ea-8d86-da7209703b4a.png"></img>
+<img src="https://user-images.githubusercontent.com/55074554/80449138-4ae77980-8959-11ea-9fd9-0618b4ce43e3.png"></img>
 주요 메소드마다 단위테스트를 거치며 유지보수 및 리펙토링 효율을 높이기 위해 노력함  
 특히 프로세스를 스케줄링 하는 로직은 이 프로그램의 핵심 기능이므로, 프로젝트 완료 때까지 더 많은 테스트케이스를 추가하며 향상시킬 예정
 ### 2.3 CI/CD
