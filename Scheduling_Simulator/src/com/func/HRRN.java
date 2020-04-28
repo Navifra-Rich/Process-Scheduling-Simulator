@@ -1,11 +1,8 @@
 package com.func;
-
+import com.pro.Process;
 public class HRRN extends Scheduling{
 	
-	public HRRN() {
-		super();
-		processorNum = 1;
-	}
+	public HRRN(int processorNum) {super(processorNum);}
 	// 대기큐 내에 있는 모든 프로세스의 대기시간을 1씩 더합ㅎ니다.
 	public void addWaitTime() {
 		for (int i = 0; i < waitQ.size(); i++) waitQ.get(i).addWaitTime();
@@ -30,12 +27,17 @@ public class HRRN extends Scheduling{
 	}
 	// 실제 스케쥴링
 	@Override
-	public void doScheduling() {	
+	public Process[] doScheduling() {
+		int index=0;
+		Process[] rePro=new Process[15];
 		printProcessInfo();
 		for (int time = 0; !isEnd(); time++) {
 			setWaitQ(time);
 			for(int i=0;i<processorNum;i++) {
-				checkRemain(time,i);
+				if(checkRemain(time,i)) {
+					rePro[index++]=processor[i];
+					processor[i]=null;
+				}
 				if(processor[i]==null) {
 					if(!waitQ.isEmpty()) {
 						int idx=pick();
@@ -46,5 +48,6 @@ public class HRRN extends Scheduling{
 			}
 			addWaitTime();
 		}
+		return null;
 	}
 }

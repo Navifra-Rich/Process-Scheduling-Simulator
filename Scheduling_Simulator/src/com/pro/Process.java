@@ -1,15 +1,14 @@
 package com.pro;
 
 public class Process {
-	int arrTime;
-	int burTime;
-	int endTime;
-	int ID;
-	int waitTime;
-	int turnTime;
-	int remainTime;
-	int quantum;
-	
+	int arrTime;	//arrival time
+	int burTime;	//burst time
+	int endTime;	//end time
+	int ID;			//process ID
+	int waitTime;	//waiting time
+	int turnTime;	//turnaround time
+	int remainTime;	//remain time
+	int quantum;	//quantum (Round Robin)
 	public Process() {}
 	public Process(int arrTime, int burTime) {
 		this.arrTime=arrTime;
@@ -18,6 +17,15 @@ public class Process {
 		waitTime=0;  
 		turnTime=0;
 		quantum=0;
+	}
+	// 테스트용
+	public Process(int arrTime, int burTime, int endTime, int waitTime, int turnTime) {
+		super();
+		this.arrTime = arrTime;
+		this.burTime = burTime;
+		this.endTime = endTime;
+		this.waitTime = waitTime;
+		this.turnTime = turnTime;
 	}
 	public void addWaitTime() {
 		waitTime++;
@@ -73,6 +81,12 @@ public class Process {
 	public void setQuantum(int quantum) {
 		this.quantum = quantum;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+
 	@Override
 	public String toString() {
 		return "Process [arrTime=" + arrTime + ", burTime=" + burTime + ", endTime=" + endTime + ", waitTime="
