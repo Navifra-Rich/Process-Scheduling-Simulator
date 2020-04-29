@@ -1,10 +1,7 @@
 package com.func;
-
 import com.pro.Process;
-
 public class RR extends Scheduling {
 	int quantum;
-
 	public RR(int processorNum, int quantum) {
 		super(processorNum);
 		this.quantum = quantum;
