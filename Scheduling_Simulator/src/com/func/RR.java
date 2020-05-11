@@ -1,24 +1,32 @@
 package com.func;
+
 import com.pro.Process;
+
 public class RR extends Scheduling {
 	int quantum;
+
 	public RR(int processorNum, int quantum) {
 		super(processorNum);
 		this.quantum = quantum;
 	}
+
 	@Override
 	public Process[] doScheduling() {
-		int index=0;
-		Process[] rePro=new Process[15];
+		int index = 0;
+		Process[] rePro = new Process[15];
 		printProcessInfo();
 		for (int time = 0; !isEnd(); time++) {
 			setWaitQ(time);
 			for (int i = 0; i < processorNum; i++) {
+
 				if (processor[i] != null) {
-					if(checkRemain(time, i)) {
-						rePro[index++]=processor[i];
+					runStatus[i][time] = processor[i].getID();
+					System.out.println(i + "번 프로세서의   " + time + " 시간에  = " + processor[i].getID());
+
+					if (checkRemain(time, i)) {
+						rePro[index++] = processor[i];
 						processor[i] = null;
-					}else if (processor[i].getQuantum() == quantum - 1) {
+					} else if (processor[i].getQuantum() == quantum - 1) {
 						processor[i].setQuantum(0);
 						processor[i].reduRemainTime();
 						waitQ.offer(processor[i]);

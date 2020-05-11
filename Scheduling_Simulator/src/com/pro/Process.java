@@ -70,7 +70,9 @@ public class Process {
 		return ID;
 	}
 	public void setID(int iD) {
-		ID = iD;
+		this.ID = iD;
+		System.out.println("¿Ö¾ÈµÊ ?"+this.ID+"  "+iD);
+		
 	}
 	public int getWaitTime() {
 		return waitTime;
@@ -98,7 +100,7 @@ public class Process {
 
 	@Override
 	public String toString() {
-		return "Process [arrTime=" + arrTime + ", burTime=" + burTime + ", endTime=" + endTime + ", waitTime="
+		return "Process [ ID="+ID+", arrTime=" + arrTime + ", burTime=" + burTime + ", endTime=" + endTime + ", waitTime="
 				+ waitTime + ", turnTime=" + turnTime +", remainTime="+remainTime + "]";
 	}
 }

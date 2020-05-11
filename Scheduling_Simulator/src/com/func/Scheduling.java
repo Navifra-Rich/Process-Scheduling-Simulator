@@ -4,11 +4,25 @@ import java.util.LinkedList;
 import com.pro.Process;
 public abstract class Scheduling {
 	int processorNum;
-
+	
+	public int getProcessorNum() {
+		return processorNum;
+	}
+	public void setProcessorNum(int num) {
+		processorNum=num;
+	}
+	Process[] rePro = new Process[15];
+	//나중에 private 바꿀거임
+	public int[][] runStatus = new int[4][150];
+	
+	public void setProcessNum(int processNum) {
+		rePro = new Process[processNum];
+	}
 	public Scheduling(int processorNum) {
 		this.processorNum = processorNum;
 	}
 	Process[] processor = new Process[4];
+	
 	ArrayList<Process> pcs = new ArrayList<Process>(); 	// 모든 프로세스가 저장되어있는 큐
 	LinkedList<Process> waitQ = new LinkedList<Process>(); // 도착한 프로세스가 대기하는 큐
 
@@ -17,7 +31,11 @@ public abstract class Scheduling {
 		Process pro = new Process(arrTime, burTime);
 		pcs.add(pro);
 	}
-
+	public void insertPcs(int arrTime, int burTime, int ID) {
+		Process pro = new Process(arrTime, burTime);
+		pro.setID(ID);
+		pcs.add(pro);
+	}
 	// 모든 과정이 끝났는지 체크합니다. pcs의 모든 프로세스의 remain time이 0일경우 true를 반환합니다.
 	public boolean isEnd() {
 		for (int i = 0; i < pcs.size(); i++)
