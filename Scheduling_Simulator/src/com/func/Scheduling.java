@@ -26,6 +26,9 @@ public abstract class Scheduling {
 	ArrayList<Process> pcs = new ArrayList<Process>(); 	// 모든 프로세스가 저장되어있는 큐
 	LinkedList<Process> waitQ = new LinkedList<Process>(); // 도착한 프로세스가 대기하는 큐
 
+	public ArrayList<Process> getProcessArray(){
+		return pcs;
+	}
 	// 새로운 프로세스 정보를 입력받아 저장
 	public void insertPcs(int arrTime, int burTime) {
 		Process pro = new Process(arrTime, burTime);
@@ -60,6 +63,7 @@ public abstract class Scheduling {
 			processor[processorIdx]
 					.setWaitTime(processor[processorIdx].getTurnTime() - processor[processorIdx].getBurTime());
 			processor[processorIdx].reduRemainTime();
+			processor[processorIdx].setNormalizedTT((float)processor[processorIdx].getTurnTime()/processor[processorIdx].getBurTime());
 			System.out.println("   " + processorIdx + "번째 프로세서의 프로세스 종료  " + processor[processorIdx].toString());
 			
 			return true;

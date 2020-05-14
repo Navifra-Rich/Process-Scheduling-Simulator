@@ -9,6 +9,8 @@ public class Process {
 	int turnTime;	//turnaround time
 	int remainTime;	//remain time
 	int quantum;	//quantum (Round Robin)
+	float normalizedTT;
+	
 	public Process() {}
 	public Process(Process p) {
 		this.arrTime = p.arrTime;
@@ -71,8 +73,6 @@ public class Process {
 	}
 	public void setID(int iD) {
 		this.ID = iD;
-		System.out.println("¿Ö¾ÈµÊ ?"+this.ID+"  "+iD);
-		
 	}
 	public int getWaitTime() {
 		return waitTime;
@@ -92,15 +92,20 @@ public class Process {
 	public void setQuantum(int quantum) {
 		this.quantum = quantum;
 	}
+	public float getNormalizedTT() {
+		return normalizedTT;
+	}
+	public void setNormalizedTT(float normalizedTT) {
+		this.normalizedTT = normalizedTT;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
 		return super.equals(obj);
 	}
-
 	@Override
 	public String toString() {
 		return "Process [ ID="+ID+", arrTime=" + arrTime + ", burTime=" + burTime + ", endTime=" + endTime + ", waitTime="
-				+ waitTime + ", turnTime=" + turnTime +", remainTime="+remainTime + "]";
+				+ waitTime + ", turnTime=" + turnTime +", remainTime="+remainTime + ", NTT = "+normalizedTT+"]";
 	}
 }

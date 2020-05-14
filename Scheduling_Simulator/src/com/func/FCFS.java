@@ -9,7 +9,7 @@ public class FCFS extends Scheduling {
 
 	@Override
 	public Process[] doScheduling() {
-		System.out.println("---In FCFS ");
+		System.out.println("---In FCFS processorNum = "+processorNum);
 		int index = 0;
 		Process[] rePro = new Process[15];
 		printProcessInfo(); // 프로세스 정보 출력. 디버깅용
@@ -37,6 +37,13 @@ public class FCFS extends Scheduling {
 			}
 		}
 		this.rePro = rePro;
+		for(int i=0;i<4;i++) {
+			System.out.print(i+" 프로세서 ");
+			for(int ii=0;ii<20;ii++) {
+				System.out.print(runStatus[i][ii]+" ");
+			}
+			System.out.println();
+		}
 		System.out.println("---Out FCFS ");
 		return rePro;
 	}

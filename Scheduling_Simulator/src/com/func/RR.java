@@ -9,7 +9,6 @@ public class RR extends Scheduling {
 		super(processorNum);
 		this.quantum = quantum;
 	}
-
 	@Override
 	public Process[] doScheduling() {
 		int index = 0;
@@ -22,7 +21,6 @@ public class RR extends Scheduling {
 				if (processor[i] != null) {
 					runStatus[i][time] = processor[i].getID();
 					System.out.println(i + "번 프로세서의   " + time + " 시간에  = " + processor[i].getID());
-
 					if (checkRemain(time, i)) {
 						rePro[index++] = processor[i];
 						processor[i] = null;
