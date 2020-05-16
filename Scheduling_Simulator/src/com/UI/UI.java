@@ -1,6 +1,6 @@
 package com.UI;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -8,15 +8,11 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -26,7 +22,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -64,13 +59,11 @@ public class UI extends JFrame {
 	public int getProcessorNum() {
 		return sch.getProcessorNum();
 	}
-
 	private String nameSch = "FCFS";
-
-	// 초기화 버튼 객체 변수 선언
-	private JButton btnClear = null;
 	public UI() {
-		System.out.println("생송");
+		initColor();
+	}
+	public void initColor() {
 		color[0] = new Color(220, 112, 126);
 		color[1] = new Color(237, 170, 125);
 		color[2] = new Color(239, 180, 193);
@@ -87,10 +80,8 @@ public class UI extends JFrame {
 		color[13] = new Color(130, 171, 195);
 		color[14] = new Color(252, 239, 204);
 	}
-
 	private Process[] pcs = new Process[15];
 	private int processorNum = 0;
-	// 무언가 기능이 실행중이면 true로 다른 입력 받지 않음
 	boolean denay;
 
 	public boolean isDenaied() {
@@ -100,6 +91,7 @@ public class UI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					printResult(sch);
 					lblNewLabel.repaint();
 					frame.setVisible(true);
@@ -112,9 +104,6 @@ public class UI extends JFrame {
 	public void printResult(Scheduling sch) {
 
 		JPanel pan = new JPanel();
-		System.out.println("프로세서 개수!!!!"+sch.getProcessorNum());
-
-		
 		pan.setLayout(null);
 		this.sch = sch;
 		PrintThread t = new PrintThread(this);
@@ -125,8 +114,6 @@ public class UI extends JFrame {
 			processtable.setValueAt(pcs.get(i).getTurnTime(), i, 3);
 			processtable.setValueAt(Math.round(pcs.get(i).getNormalizedTT()*100)/(float)100 , i, 4);
 		}
-		
-		
 		th.start();
 	}
 
@@ -152,7 +139,9 @@ public class UI extends JFrame {
 			}
 		});
 	}
-
+	public void reset() {
+		lblNewLabel.removeAll();
+	}
 	public void start() {
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -170,8 +159,6 @@ public class UI extends JFrame {
 	public void initialize() {
 
 		frame.setVisible(true);
-		frame.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(UI.class.getResource("/javax/swing/plaf/metal/icons/ocean/expanded.gif")));
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(UIManager.getColor("Button.disabledShadow"));
 		frame.getContentPane().setForeground(Color.ORANGE);
@@ -199,12 +186,9 @@ public class UI extends JFrame {
 		lblProcessrun.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProcessrun.setOpaque(true);
 		lblProcessrun.setBackground(Color.WHITE);
-//      lblProcessrun.setBackground(SystemColor.inactiveCaptionBorder);
-//      lblProcessrun.setGridColor(SystemColor.activeCaption);
 		lblProcessrun.setFont(new Font("Arial", Font.BOLD, 15));
 
 		JLabel label = new JLabel("Scheduling Simulator");
-//      label.setBounds(399, 12, 372, 58);
 		label.setBounds(365, 10, 370, 58);
 		label.setOpaque(true);
 		label.setForeground(new Color(0, 0, 0));
@@ -235,31 +219,27 @@ public class UI extends JFrame {
 		timequntanm.setVisible(false);
 		panel.add(timequntanm);
 
-		JComboBox scheduler = new JComboBox();
+		JComboBox <String>scheduler = new JComboBox<String>();
 		scheduler.setBounds(274, 140, 70, 24);
 		scheduler.setFont(new Font("Arial", Font.PLAIN, 16));
 		scheduler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String RR = "RR";
-				String COVID = "COVID";
-				System.out.println("이거 되야되는거 아뇽? " + nameSch);
 				if (RR.equals(scheduler.getSelectedItem())) {
 					lbltimequntaum.setVisible(true);
 					timequntanm.setVisible(true);
-					// System.out.println(scheduler.getSelectedItem());
 				} else {
 					lbltimequntaum.setVisible(false);
 					timequntanm.setVisible(false);
 				}
 				nameSch = scheduler.getSelectedItem().toString();
-				System.out.println("name = " + nameSch);
 			}
 		});
 		panel.add(scheduler);
 		scheduler.setBackground(SystemColor.inactiveCaptionBorder);
-		scheduler.setModel(new DefaultComboBoxModel(algoList));
+		scheduler.setModel(new DefaultComboBoxModel<String>(algoList));
 
-		processtable = new JTable(); // 표
+		processtable = new JTable(); 
 
 		processtable.setFont(new Font("Arial", Font.BOLD, 18));
 		processtable.setBounds(533, 100, 500, 260);
@@ -320,15 +300,12 @@ public class UI extends JFrame {
 		btnSimulationstart.setBackground(SystemColor.inactiveCaptionBorder);
 		btnSimulationstart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println(processtable.getValue(0,0));
 				int processNum = 0;
 				while (processtable.getValueAt(processNum, 0) != null && processNum < 15) {
 					int col = 0;
 					while (col < 2) {
-						System.out.print(processtable.getValueAt(processNum, col) + "  ");
 						col++;
 					}
-					System.out.println();
 					processNum++;
 				}
 
@@ -343,9 +320,8 @@ public class UI extends JFrame {
 				}else if(nameSch.equals(algoList[algoType.HRRN.getVal()])) {
 					sch = new HRRN(processorNum);
 				}else if(nameSch.equals(algoList[algoType.COVID.getVal()])) {
-					//sch = new COVID(processorNum);
+					sch = new COVID(processorNum);
 				}else {
-					//System.out.println(nameSch+"띠용"+algoList[algoType.FCFS.getVal()]);
 				}
 				
 				processorNum = (int) numProcess.getValue();
@@ -401,9 +377,11 @@ public class UI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				for (; rownum >= 0; rownum--) {
 					pcs[rownum] = null;
-					processtable.setValueAt(null, rownum, 0);
-					processtable.setValueAt(null, rownum, 1);
+					for(int i=0;i<5;i++)
+					processtable.setValueAt(null, rownum, i);
 				}
+				lblNewLabel.removeAll();
+				lblNewLabel.repaint();
 				rownum++;
 				arrivaltime.requestFocus();
 			}

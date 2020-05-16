@@ -14,9 +14,6 @@ public class FCFS extends Scheduling {
 		Process[] rePro = new Process[15];
 		printProcessInfo(); // 프로세스 정보 출력. 디버깅용
 		for (int time = 0; !isEnd(); time++) {
-			
-			// printProcessInfo();
-			System.out.println("p num " + processorNum);
 			setWaitQ(time); // 매 시간단위마다 도착한 프로세스를 대기큐에 넣어줍니다.
 			for (int i = 0; i < processorNum; i++) { // 프로세서의 개수만큼 반복
 				if (processor[i] != null) {
@@ -36,14 +33,7 @@ public class FCFS extends Scheduling {
 				} // 프로세서가 사용되고있으면 remain time을 감소시킵니다.
 			}
 		}
-		this.rePro = rePro;
-		for(int i=0;i<4;i++) {
-			System.out.print(i+" 프로세서 ");
-			for(int ii=0;ii<20;ii++) {
-				System.out.print(runStatus[i][ii]+" ");
-			}
-			System.out.println();
-		}
+		//this.rePro = rePro;
 		System.out.println("---Out FCFS ");
 		return rePro;
 	}
