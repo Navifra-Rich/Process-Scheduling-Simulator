@@ -36,17 +36,11 @@ import java.awt.Rectangle;
 
 public class UI extends JFrame {
 	
-	
-	
 	JLabel lblNewLabel = new JLabel(""); // process run부분
 	UI instance = this;
-	
-	
 	int rownum = 0;
 	private JFrame frame = new JFrame();;
 	private JTable processtable;
-	
-	
 	Color[] color = new Color[15];
 	JPanel[][] panels = new JPanel[4][100];
 	JPanel printMain = new JPanel();
@@ -129,7 +123,7 @@ public class UI extends JFrame {
 			processtable.setValueAt(Math.round(pcs.get(i).getNormalizedTT()*100)/(float)100 , i, 4);
 		}
 		
-		
+		processtable.repaint();
 		th.start();
 	}
 
@@ -181,8 +175,6 @@ public class UI extends JFrame {
 	public void initialize() {
 		frame = new JFrame();
 		frame.setVisible(true);
-		frame.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(UI.class.getResource("/javax/swing/plaf/metal/icons/ocean/expanded.gif")));
 		frame.setBackground(Color.WHITE);
 		frame.getContentPane().setBackground(UIManager.getColor("Button.disabledShadow"));
 		frame.getContentPane().setForeground(Color.ORANGE);
@@ -380,9 +372,10 @@ public class UI extends JFrame {
 		btnSimulationstart.setBackground(SystemColor.activeCaption);
 		btnSimulationstart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for (; rownum >= 0; rownum--) {
+				
+				for (int rNum=0; rNum >= 0; rNum--) {
 					for(int i=2;i<5;i++)
-					processtable.setValueAt(null, rownum, i);
+					processtable.setValueAt(null, rNum, i);
 				}
 				lblNewLabel.removeAll();
 				lblNewLabel.repaint();
@@ -410,12 +403,12 @@ public class UI extends JFrame {
 				}else if(nameSch.equals(algoList[algoType.COVID.getVal()])) {
 					sch = new COVID(processorNum);
 				}else {
-					//System.out.println(nameSch+"띠용"+algoList[algoType.FCFS.getVal()]);
+					
 				}
-				// 아래 출력 화면 초기화 필요
 				processorNum = (int) numProcess.getValue();
 				Controller cont = new Controller();
 				cont.simulateAlgorithm(instance, sch, processorNum, pcs);
+				processtable.repaint();
 			}
 		});
 		panel.add(btnSimulationstart);
@@ -456,6 +449,7 @@ public class UI extends JFrame {
 		btnTimeinsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (rownum < 15) {
+					System.out.println("row num = "+rownum+" pcs size = "+pcs.length);
 					pcs[rownum] = new Process((int) arrivaltime.getValue(), (int) bursttime.getValue());
 					processtable.setValueAt(arrivaltime.getValue(), rownum, 0);
 					processtable.setValueAt(bursttime.getValue(), rownum, 1);
@@ -480,7 +474,8 @@ public class UI extends JFrame {
 				}
 				lblNewLabel.removeAll();
 				lblNewLabel.repaint();
-				rownum++;
+				processtable.repaint();
+				rownum=0;
 				arrivaltime.requestFocus();
 			}
 		});
@@ -551,7 +546,6 @@ public class UI extends JFrame {
 		lblP_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblP_1.setFont(new Font("Arial", Font.BOLD, 15));
 		lblP_1.setBackground(Color.WHITE);
-		//lblP_1.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
 		lblP_1.setBounds(566, 172, 40, 22);
 		panel.add(lblP_1);
 
@@ -675,29 +669,15 @@ public class UI extends JFrame {
 		lblNewLabel_1.setBounds(80, 509, 1118, 308);
 		panel.add(lblNewLabel_1);
 		
-		lblCovid.setIcon(new ImageIcon("C:\\Users\\sprtm\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\covid.jpg"));
 		lblCovid.setVisible(false);
 		lblCovid.setBounds(0, 0, 1279, 869);
 		panel.add(lblCovid);
 
 		DefaultTableCellRenderer tScheduleCellRenderer = new DefaultTableCellRenderer();
-		// DefaultTableCellHeaderRenderer의 정렬을 가운데 정렬로 지정
 		tScheduleCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-		// 반복문을 이용하여 테이블을 가운데 정렬로 지정
 		for (int index = 0; index < tcmSchedule.getColumnCount(); index++) {
-
 			tcmSchedule.getColumn(index).setCellRenderer(tScheduleCellRenderer);
-
 		}
 
-	}
-	public JLabel labelBuilder(String name,int x, int y, int width, int height) {
-		JLabel temp = new JLabel(name);
-		temp.setOpaque(true);
-		temp.setHorizontalAlignment(SwingConstants.CENTER);
-		temp.setFont(new Font("Arial", Font.BOLD, 16));
-		temp.setBackground(Color.WHITE);
-		temp.setBounds(492, 376, width, height);
-		return temp;
 	}
 }
