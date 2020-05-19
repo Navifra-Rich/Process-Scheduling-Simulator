@@ -12,14 +12,8 @@ public class SPN extends Scheduling {
 	      printProcessInfo();   //프로세스 정보 출력. 디버깅용
 	      for (int time = 0; !isEnd(); time++) {
 	         setWaitQ(time);   //매 시간단위마다 도착한 프로세스를 대기큐에 넣어줍니다.
-	         int min = Integer.MAX_VALUE;
-	         //time이 지날때마다 burst_time이 가장 적은 프로세스의 인덱스를 찾아서 설정해준다.
-	         for(int i = 0; i < waitQ.size(); i++) {
-	            if(waitQ.get(i).getBurTime() < min) {
-	               min = waitQ.get(i).getBurTime();
-	               spn_idx = i;
-	            }
-	         }
+	        
+	        
 	         //System.out.println("time : "+time+"Index : "+index+"size : "+waitQ.size());
 	         for(int i=0;i<processorNum;i++) {   //프로세서의 개수만큼 반복
 	        	 if (processor[i] != null) {
@@ -32,6 +26,14 @@ public class SPN extends Scheduling {
 	               }
 	            if(processor[i]==null) {      //프로세서가 비어있을경우
 	               if(!waitQ.isEmpty()) {      //그리고 대기큐에 프로세스가 있는경우
+	            	   //time이 지날때마다 burst_time이 가장 적은 프로세스의 인덱스를 찾아서 설정해준다.
+	            	 int min = Integer.MAX_VALUE;
+	      	         for(int ii = 0; ii < waitQ.size(); ii++) {
+	      	            if(waitQ.get(ii).getBurTime() < min) {
+	      	               min = waitQ.get(ii).getBurTime();
+	      	               spn_idx = ii;
+	      	            }
+	      	         }
 	                  processor[i] = waitQ.get(spn_idx);   //대기큐에서 bur_time이 가장 적은 프로세스를 가져옵니다.
 	                  waitQ.remove(spn_idx);//가져온 큐를 삭제합니다.
 	                  }
