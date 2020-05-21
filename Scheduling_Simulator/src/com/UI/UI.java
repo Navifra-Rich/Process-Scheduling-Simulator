@@ -32,9 +32,11 @@ import com.pro.Process;
 import com.func.*;
 import com.mul.PrintThread;
 import java.awt.Rectangle;
+import javax.swing.ImageIcon;
 
 public class UI extends JFrame {
-	public boolean denay=false;
+
+	public boolean denay = false;
 	private LabelBuilder lBuilder = new LabelBuilder();
 	UI instance = this;
 	private int rownum = 0;
@@ -46,7 +48,7 @@ public class UI extends JFrame {
 	private Scheduling sch;
 	private ProcessColor pcsColor = new ProcessColor();
 	private String[] algoList = { "FCFS", "RR", "SPN", "SRTN", "HRRN", "COVID" };
-	
+
 	private enum algoType {
 		FCFS(0), RR(1), SPN(2), SRTN(3), HRRN(4), COVID(5);
 
@@ -60,6 +62,10 @@ public class UI extends JFrame {
 			return value;
 		}
 	}
+
+//	public UI() {
+	//	initialize();
+	//}
 
 	public int getProcessorNum() {
 		return sch.getProcessorNum();
@@ -86,11 +92,11 @@ public class UI extends JFrame {
 
 		this.sch = sch;
 		PrintThread t = new PrintThread(this);
-		t.sch=sch;
+		t.sch = sch;
 		int width = 900;
-		if(sch.endTime*50>width)
-			width=sch.endTime*50;
-		jp.setPreferredSize(new Dimension(width,278));
+		if (sch.endTime * 50 > width)
+			width = sch.endTime * 50;
+		jp.setPreferredSize(new Dimension(width, 278));
 		th = new Thread(t);
 		ArrayList<Process> pcs = sch.getProcessArray();
 		for (int i = 0; i < pcs.size(); i++) {
@@ -115,7 +121,7 @@ public class UI extends JFrame {
 							panels[i][time].setVisible(true);
 							jp.add(panels[i][time]);
 							jp.repaint();
-						}else if(sch.runStatus[i][time]==-1){
+						} else if (sch.runStatus[i][time] == -1) {
 							panels[i][time] = new JPanel();
 							panels[i][time].setBounds(-20 + time * 48, 15 + i * 68, 42, 42);
 							panels[i][time].setBackground(pcsColor.getColor(15));
@@ -151,11 +157,11 @@ public class UI extends JFrame {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(UIManager.getColor("Button.disabledShadow"));
 		frame.setBounds(60, 20, 1297, 916);
-		frame.setSize(1400, 900);
+		frame.setSize(1293, 900);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.WHITE);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 1279, 869);
 		panel.setFont(new Font("굴림", Font.PLAIN, 19));
@@ -163,18 +169,26 @@ public class UI extends JFrame {
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(null);
 		frame.getContentPane().add(panel);
-		for (int i = 0; i < 4; i++) {
-			JLabel lblCore = lBuilder.build((i + 1) + " Core", 106, 542 + i * 70, 100, 37, 27);
-			panel.add(lblCore);
-		}
+
+		JLabel lblCore1 = lBuilder.build("1 Core", 106, 542 + 0 * 70, 100, 37, 27);
+		JLabel lblCore2 = lBuilder.build("2 Core", 106, 542 + 1 * 70, 100, 37, 27);
+		JLabel lblCore3 = lBuilder.build("3 Core", 106, 542 + 2 * 70, 100, 37, 27);
+		JLabel lblCore4 = lBuilder.build("4 Core", 106, 542 + 3 * 70, 100, 37, 27);
+
+		panel.add(lblCore1);
+		panel.add(lblCore2);
+		panel.add(lblCore3);
+		panel.add(lblCore4);
 
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBackground(Color.WHITE);
-		
+
 		jp.setBounds(0, 0, 900, 278);
-		jp.setPreferredSize(new Dimension(900,278));
+		jp.setPreferredSize(new Dimension(900, 278));
 		jp.setLayout(null);
+		jp.setBackground(SystemColor.inactiveCaptionBorder);
+		jp.setBorder(new LineBorder(SystemColor.activeCaption));
 
 		JScrollPane js = new JScrollPane(jp, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -197,8 +211,8 @@ public class UI extends JFrame {
 		JSpinner bursttime = lBuilder.spinnerBuild(250, 360, 140, 25, 20);
 		bursttime.setModel(new SpinnerNumberModel(1, null, null, 1));
 		panel.add(bursttime);
-		
-		JLabel title = lBuilder.build("Scheduling Simulator", 394, 34, 491, 58, 38);
+
+		JLabel title = lBuilder.build("Scheduling Simulator", 394, 30, 491, 65, 43);
 		title.setBackground(SystemColor.activeCaption);
 		title.setForeground(Color.WHITE);
 		panel.add(title);
@@ -212,10 +226,40 @@ public class UI extends JFrame {
 		lblScheduler.setBorder(new LineBorder(SystemColor.textHighlight));
 		panel.add(lblScheduler);
 
-		JLabel lblNumberofProcessor = lBuilder.build("Number of Processor", 94, 150, 296, 50, 23);//new JLabel("Number of Processor");
+		JLabel lblNumberofProcessor = lBuilder.build("Number of Processor", 94, 150, 296, 50, 23);// new JLabel("Number
+																									// of Processor");
 		lblNumberofProcessor.setBorder(new LineBorder(SystemColor.textHighlight));
 		panel.add(lblNumberofProcessor);
-		
+
+		JLabel lblArrivalTime = lBuilder.build("Arrival Time", 90, 336, 146, 27, 19);
+		lblArrivalTime.setBorder(new LineBorder(SystemColor.textHighlight));
+
+		JLabel lblBurstTime = lBuilder.build("Burst Time", 250, 336, 140, 27, 19);
+		lblBurstTime.setBorder(new LineBorder(SystemColor.textHighlight));
+
+		JButton btnTimeinsert = lBuilder.buttonBuild("Insert", 414, 336, 100, 50, 23);
+
+		JButton btnClear = lBuilder.buttonBuild("Reset", 414, 429, 100, 50, 23);
+
+		JButton btnSimulationstart = lBuilder.buttonBuild("Simulation Start", 90, 429, 300, 50, 23);
+
+		JLabel runBackground = lBuilder.build("", 80, 509, 1118, 308);
+
+		String[] tableRow = { "A.T", "B.T", "W.T", "T.T", "NTT" };
+		JLabel[] tableRowLabel = new JLabel[5];
+
+		for (int i = 0; i < tableRow.length; i++) {
+			tableRowLabel[i] = lBuilder.build(tableRow[i], 650 + i * 112, 123, 60, 24);
+			panel.add(tableRowLabel[i]);
+		}
+		JLabel[] prcNameTable = new JLabel[15];
+		for (int i = 0; i < prcNameTable.length; i++) {
+			prcNameTable[i] = lBuilder.build("P" + (i + 1), 566, 150 + 22 * i, 40, 22);
+			panel.add(prcNameTable[i]);
+		}
+
+		JLabel lblCovid = new JLabel("");
+
 		JComboBox scheduler = new JComboBox();
 		scheduler.setBorder(new LineBorder(SystemColor.activeCaption));
 		scheduler.setBounds(new Rectangle(0, 0, 0, 50));
@@ -235,9 +279,133 @@ public class UI extends JFrame {
 					lblScheduler.setVisible(true);
 				}
 				if (COVID.equals(scheduler.getSelectedItem())) {
+					lblCovid.setVisible(true);
+					// title
+					title.setBackground(new Color(255, 20, 147));
+					title.setText("COVID Simulator");
+
+					// NumberofProcessor
 					lblNumberofProcessor.setText("Number of Doctor");
+					lblNumberofProcessor.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					// numProcess
+					numProcess.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+
+					// lblScheudler
+					lblScheduler.setText("Warning!!!");
+					lblScheduler.setForeground(Color.white);
+					lblScheduler.setBackground(new Color(220, 20, 60));
+					lblScheduler.setBorder(new LineBorder(new Color(255, 20, 147)));
+
+					// scheduler
+					scheduler.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					scheduler.setBackground(new Color(220, 20, 60));
+					// scheduler.set
+
+					arrivaltime.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					bursttime.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+
+					lblArrivalTime.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					lblArrivalTime.setText("Confirm time");
+					lblBurstTime.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					lblBurstTime.setText("Treat time");
+					//
+
+					JButton[] tableRow3 = { btnTimeinsert };
+
+					tableRow3[0].setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					btnTimeinsert.setBackground(new Color(255, 240, 245));
+
+					btnClear.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					btnClear.setBackground(new Color(255, 240, 245));
+
+					btnSimulationstart.setBorder(new LineBorder(new Color(220, 20, 60), 2));
+					btnSimulationstart.setBackground(new Color(255, 20, 147));
+
+					jp.setBackground(new Color(255, 240, 245));
+					jp.setBorder(new LineBorder(new Color(220, 20, 60), 1));
+
+					processtable.setBackground(new Color(255, 240, 245));
+					processtable.setGridColor(new Color(255, 182, 193));
+
+					runBackground.setBorder(new LineBorder(new Color(220, 20, 60), 4));
+
+					lblCore1.setText("Dr.LSH");
+					lblCore2.setText("Dr.LHS");
+					lblCore3.setText("Dr.PJS");
+					lblCore4.setText("Dr.HEY");
+					for (int i = 0; i < prcNameTable.length; i++) {
+
+						prcNameTable[i].setBackground(new Color(255, 240, 245));
+					}
+					String[] tableRow2 = { "C.T", "T.T", "W.T", "T.T", "NTT" };
+					for (int i = 0; i < tableRow.length; i++) {
+						tableRowLabel[i].setText(tableRow2[i]);
+						tableRowLabel[i].setBackground(new Color(255, 240, 245));
+					}
 				} else {
+					lblCovid.setVisible(false);
+					// title
+					title.setBackground(SystemColor.activeCaption);
+					title.setText("Scheduling Simulator");
+
+					// NumberofProcessor
+
 					lblNumberofProcessor.setText("Number of Processor");
+					lblNumberofProcessor.setBorder(new LineBorder(SystemColor.textHighlight));
+					// numProcess
+					numProcess.setBorder(new LineBorder(SystemColor.textHighlight));
+
+					// lblScheudler
+					lblScheduler.setText("Choose Scheduler");
+					lblScheduler.setForeground(Color.black);
+					lblScheduler.setBackground(Color.white);
+					lblScheduler.setBorder(new LineBorder(SystemColor.textHighlight));
+
+					// scheduler
+					scheduler.setBorder(new LineBorder(SystemColor.textHighlight));
+					scheduler.setBackground(SystemColor.inactiveCaptionBorder);
+
+					// scheduler.set
+					arrivaltime.setBorder(new LineBorder(SystemColor.textHighlight));
+					bursttime.setBorder(new LineBorder(SystemColor.textHighlight));
+
+					lblArrivalTime.setBorder(new LineBorder(SystemColor.textHighlight));
+					lblArrivalTime.setText("Arrival time");
+					lblBurstTime.setBorder(new LineBorder(SystemColor.textHighlight));
+					lblBurstTime.setText("Burst time");
+					//
+
+					JButton[] tableRow3 = { btnTimeinsert };
+
+					tableRow3[0].setBorder(new LineBorder(SystemColor.textHighlight));
+					btnTimeinsert.setBackground(SystemColor.inactiveCaptionBorder);
+
+					btnClear.setBorder(new LineBorder(SystemColor.textHighlight));
+					btnClear.setBackground(SystemColor.inactiveCaptionBorder);
+
+					btnSimulationstart.setBorder(new LineBorder(SystemColor.textHighlight));
+					btnSimulationstart.setBackground(SystemColor.activeCaption);
+
+					jp.setBackground(SystemColor.inactiveCaptionBorder);
+					jp.setBorder(new LineBorder(SystemColor.activeCaption));
+
+					processtable.setBackground(SystemColor.inactiveCaptionBorder);
+					processtable.setGridColor(SystemColor.activeCaption);
+
+					runBackground.setBorder(new LineBorder(SystemColor.activeCaption, 3));
+
+					lblCore1.setText("1 Core");
+					lblCore2.setText("2 Core");
+					lblCore3.setText("3 Core");
+					lblCore4.setText("4 Core");
+					for (int i = 0; i < prcNameTable.length; i++) {
+						prcNameTable[i].setBackground(Color.white);
+					}
+					String[] tableRow2 = { "A.T", "B.T", "W.T", "T.T", "NTT" };
+					for (int i = 0; i < tableRow.length; i++) {
+						tableRowLabel[i].setText(tableRow2[i]);
+						tableRowLabel[i].setBackground(Color.white);
+					}
 				}
 				nameSch = scheduler.getSelectedItem().toString();
 			}
@@ -255,12 +423,12 @@ public class UI extends JFrame {
 		processtable.setBackground(SystemColor.inactiveCaptionBorder);
 		processtable.setGridColor(SystemColor.activeCaption);
 		processtable.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		processtable.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null },{ null, null, null, null, null },
+		processtable.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null },
 				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
 				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
 				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
 				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, },
+				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null }, },
 				new String[] { "Arrival Time", "Burst Time", "waiting Time", "TurnArround Time", "NTT" }) {
 			Class[] columnTypes = new Class[] { Integer.class, Integer.class, Integer.class, Integer.class,
 					Float.class };
@@ -272,27 +440,22 @@ public class UI extends JFrame {
 		panel.add(processtable);
 		TableColumnModel tcmSchedule = processtable.getColumnModel();
 
-		JLabel lblArrivalTime = lBuilder.build("Arrival Time", 90, 336, 146, 27, 19);
-		lblArrivalTime.setBorder(new LineBorder(SystemColor.textHighlight));
 		panel.add(lblArrivalTime);
 
-		JLabel lblBurstTime = lBuilder.build("Burst Time", 250, 336, 140, 27, 19);
-		lblBurstTime.setBorder(new LineBorder(SystemColor.textHighlight));
 		panel.add(lblBurstTime);
 
-		JButton btnTimeinsert = lBuilder.buttonBuild("Insert", 414, 336, 100, 50, 23);
 		btnTimeinsert.setBackground(SystemColor.inactiveCaptionBorder);
 		panel.add(btnTimeinsert);
 		btnTimeinsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (rownum < 15) {
 					pcs[rownum] = new Process((int) arrivaltime.getValue(), (int) bursttime.getValue());
-					if((int)arrivaltime.getValue()>15000||(int)arrivaltime.getValue()<0) {
-						JOptionPane.showMessageDialog(null,"arrival time에는 0 ~ 15000 범위의 값만 넣을 수 있습니다.");
+					if ((int) arrivaltime.getValue() > 15000 || (int) arrivaltime.getValue() < 0) {
+						JOptionPane.showMessageDialog(null, "arrival time에는 0 ~ 15000 범위의 값만 넣을 수 있습니다.");
 						arrivaltime.setValue(0);
 						return;
-					}else if((int)bursttime.getValue()>1000||(int)bursttime.getValue()<1) {
-						JOptionPane.showMessageDialog(null,"burst time에는 1~ 1000 범위의 값만 넣을 수 있습니다.");
+					} else if ((int) bursttime.getValue() > 1000 || (int) bursttime.getValue() < 1) {
+						JOptionPane.showMessageDialog(null, "burst time에는 1~ 1000 범위의 값만 넣을 수 있습니다.");
 						bursttime.setValue(1);
 						return;
 					}
@@ -303,37 +466,36 @@ public class UI extends JFrame {
 			}
 		});
 
-		JButton btnClear = lBuilder.buttonBuild("Reset", 414, 429, 100, 50, 23);
+		// JButton btnClear = lBuilder.buttonBuild("Reset", 414, 429, 100, 50, 23);
 		btnClear.setBackground(Color.white);
 		panel.add(btnClear);
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				th.interrupt();
-				for (rownum-=1; rownum >= 0; rownum--) {
+				for (rownum -= 1; rownum >= 0; rownum--) {
 					pcs[rownum] = null;
 					for (int i = 0; i < 5; i++)
 						processtable.setValueAt(null, rownum, i);
 				}
 				js.getHorizontalScrollBar().setValue(0);
-				jp.setPreferredSize(new Dimension(900,278));
+				jp.setPreferredSize(new Dimension(900, 278));
 				jp.removeAll();
 				jp.repaint();
 				rownum = 0;
 				arrivaltime.requestFocus();
 			}
 		});
-		
-		JButton btnSimulationstart = lBuilder.buttonBuild("Simulation Start", 90, 429, 300, 50, 23);
+
 		btnSimulationstart.setForeground(SystemColor.window);
 		btnSimulationstart.setBorder(new LineBorder(new Color(153, 180, 209)));
 		btnSimulationstart.setBackground(SystemColor.activeCaption);
 		btnSimulationstart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(denay) {
-					JOptionPane.showMessageDialog(null,"이미 시뮬레이터가 실행중입니다.");
+				if (denay) {
+					JOptionPane.showMessageDialog(null, "이미 시뮬레이터가 실행중입니다.");
 					return;
 				}
-				denay=true;
+				denay = true;
 				int idx = rownum;
 				for (; idx >= 0; idx--)
 					for (int i = 2; i < 5; i++)
@@ -358,21 +520,14 @@ public class UI extends JFrame {
 			}
 		});
 		panel.add(btnSimulationstart);
-		
-		String[] tableRow = { "A.T", "B.T", "W.T", "T.T", "NTT" };
-		for (int i = 0; i < tableRow.length; i++) {
-			JLabel tableRowLabel = lBuilder.build(tableRow[i], 661 + i * 112, 123, 40, 15);
-			panel.add(tableRowLabel);
-		}
-		JLabel[] prcNameTable = new JLabel[15];
-		for (int i = 0; i < prcNameTable.length; i++) {
-			prcNameTable[i] = lBuilder.build("P" + (i + 1), 566, 150 + 22 * i, 40, 22);
-			panel.add(prcNameTable[i]);
-		}
 
-		JLabel runBackground = lBuilder.build("", 80, 509, 1118, 308);
 		runBackground.setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		panel.add(runBackground);
+
+		lblCovid.setIcon(new ImageIcon("src/com/UI/covid_red.jpg"));
+		lblCovid.setBounds(0, 0, 1275, 853);
+		lblCovid.setVisible(false);
+		panel.add(lblCovid);
 
 		DefaultTableCellRenderer tScheduleCellRenderer = new DefaultTableCellRenderer();
 		tScheduleCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
