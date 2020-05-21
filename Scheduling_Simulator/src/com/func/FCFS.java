@@ -18,8 +18,7 @@ public class FCFS extends Scheduling {
 			for (int i = 0; i < processorNum; i++) { // 프로세서의 개수만큼 반복
 				if (processor[i] != null) {
 					runStatus[i][time] = processor[i].getID();
-					System.out.println(i + "번 프로세서의   " + time + " 시간에  = " + processor[i].getID());
-				}
+				}else runStatus[i][time]=-1;
 				if (checkRemain(time, i)) { // 프로세스가 끝났는지 검사합니다.
 					rePro[index++] = processor[i];
 					processor[i] = null;
@@ -29,7 +28,6 @@ public class FCFS extends Scheduling {
 						processor[i] = waitQ.pop(); // 대기큐에서 프로세스를 가져옵니다.
 				} else {
 					processor[i].reduRemainTime();
-
 				} // 프로세서가 사용되고있으면 remain time을 감소시킵니다.
 			}
 		}

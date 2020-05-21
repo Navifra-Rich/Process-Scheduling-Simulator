@@ -13,8 +13,8 @@ public abstract class Scheduling {
 	}
 	Process[] rePro = new Process[15];
 	//나중에 private 바꿀거임
-	public int[][] runStatus = new int[4][150];
-	
+	public int[][] runStatus = new int[4][15050];
+	public int endTime=0;
 	public void setProcessNum(int processNum) {
 		rePro = new Process[processNum];
 	}
@@ -41,6 +41,7 @@ public abstract class Scheduling {
 	}
 	// 모든 과정이 끝났는지 체크합니다. pcs의 모든 프로세스의 remain time이 0일경우 true를 반환합니다.
 	public boolean isEnd() {
+		endTime++;
 		for (int i = 0; i < pcs.size(); i++)
 			if (pcs.get(i).getRemainTime() != 0)
 				return false;

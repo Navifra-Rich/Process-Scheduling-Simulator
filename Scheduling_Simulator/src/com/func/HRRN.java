@@ -32,8 +32,7 @@ public class HRRN extends Scheduling{
 			for(int i=0;i<processorNum;i++) {
 				if (processor[i] != null) {
 					runStatus[i][time] = processor[i].getID();
-					System.out.println(i + "번 프로세서의   " + time + " 시간에  = " + processor[i].getID());
-				}
+				}else runStatus[i][time]=-1;
 				if(checkRemain(time,i)) {
 					rePro[index++]=processor[i];
 					processor[i]=null;

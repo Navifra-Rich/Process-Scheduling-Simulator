@@ -3,7 +3,7 @@ package com.UI;
 import java.awt.Color;
 
 public class ProcessColor {
-	Color[] color = new Color[15];
+	Color[] color = new Color[16];
 	public ProcessColor() {
 		color[0] = new Color(220, 112, 126);
 		color[1] = new Color(237, 170, 125);
@@ -20,6 +20,7 @@ public class ProcessColor {
 		color[12] = new Color(212, 219, 181);
 		color[13] = new Color(130, 171, 195);
 		color[14] = new Color(252, 239, 204);
+		color[15] = new Color(0,0,0);
 	}
 	public Color getColor(int idx) {
 		return color[idx];

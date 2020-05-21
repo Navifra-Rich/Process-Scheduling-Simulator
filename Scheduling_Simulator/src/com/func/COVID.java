@@ -17,6 +17,7 @@ public class COVID extends Scheduling {
 			setWaitQ(time); // 매 시간단위마다 도착한 프로세스를 대기큐에 넣어줍니다.
 			for (int i = 0; i < processorNum; i++) { // 프로세서의 개수만큼 반복
 				if (processor[i] != null) runStatus[i][time] = processor[i].getID();
+				else runStatus[i][time]=-1;
 				if (checkRemain(time, i)) { // 프로세스가 끝났는지 검사합니다.
 					rePro[index++] = processor[i];
 					processor[i] = null;

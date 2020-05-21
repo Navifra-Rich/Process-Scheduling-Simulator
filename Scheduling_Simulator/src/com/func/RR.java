@@ -20,7 +20,6 @@ public class RR extends Scheduling {
 
 				if (processor[i] != null) {
 					runStatus[i][time] = processor[i].getID();
-					System.out.println(i + "번 프로세서의   " + time + " 시간에  = " + processor[i].getID());
 					if (checkRemain(time, i)) {
 						rePro[index++] = processor[i];
 						processor[i] = null;
@@ -30,7 +29,7 @@ public class RR extends Scheduling {
 						waitQ.offer(processor[i]);
 						processor[i] = null;
 					}
-				}
+				}else runStatus[i][time]=-1;
 				if (processor[i] == null) {
 					if (!waitQ.isEmpty())
 						processor[i] = waitQ.pop();
