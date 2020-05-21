@@ -20,7 +20,7 @@ public class ProcessColor {
 		color[12] = new Color(212, 219, 181);
 		color[13] = new Color(130, 171, 195);
 		color[14] = new Color(252, 239, 204);
-		color[15] = new Color(0,0,0);
+		color[15] = new Color(211,211,211);
 	}
 	public Color getColor(int idx) {
 		return color[idx];
