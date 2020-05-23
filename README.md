@@ -6,7 +6,7 @@ Process Scheduling Simulator는(이하 pss) 운영체제가 프로세스에게 �
 ## 1. 시뮬레이터 개요
 
 ### 1.1 알고리즘 종류
-<img src="https://user-images.githubusercontent.com/55074554/82726378-a91c3800-9d1e-11ea-9a85-6838746bfd42.png"></img>
+<img src="https://user-images.githubusercontent.com/55074554/82726424-f5677800-9d1e-11ea-9743-01d9f89f3d76.png"></img>
 
 FCFS, RR, SPN, SRTN, HRRN 5개의 알고리즘을 사용해서 스케줄링 가능
 
